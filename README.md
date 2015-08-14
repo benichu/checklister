@@ -76,6 +76,10 @@ To install or update your development environment, run `script/bootstrap`.
 
 You can write tests using `rspec v3+` syntax in the `spec` folder. To run the tests, run `script/test`.
 
+## Authors
+
+Checklister is written and maintained by [Benjamin Thouret](https://github.com/benichu) and [Manon Deloupy](https://github.com/mdeloupy).
+
 ## License
 
-Check the [LICENSE](LICENSE) file.
+[Checklister is licensed under the MIT License](LICENSE)
