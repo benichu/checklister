@@ -76,9 +76,16 @@ To install or update your development environment, run `script/bootstrap`.
 6. Run `bundle exec guard`
 7. You can run a REPL: `bin/console`
 
-## Testing
+### Testing
 
 You can write tests using `rspec v3+` syntax in the `spec` folder. To run the tests, run `script/test`.
+
+### Documentation
+
+[Documenting your code from rubygems.org](http://guides.rubygems.org/make-your-own-gem/#documenting-your-code)
+
+This project is documented with the [YARD syntax](http://www.rubydoc.info/gems/yard/file/docs/GettingStarted.md),
+every time the gem is published a documentation will automatically be generated at [rubydoc.info](http://www.rubydoc.info/gems/checklister).
 
 ## Release
 
