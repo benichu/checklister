@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Usage: script/release
+# Build the package, tag a commit, push it to origin, and then release the
+# package to the rubygems repository.
+
+set -e
+
+# Get latest tag
+
+# http://git-scm.com/docs/git-fetch
+# `-t`: Fetch all tags from the remote
+echo "Fetching origin with all remote tags..."
+git fetch -t origin
+
+latest_tag=$(git describe origin --abbrev=0 --match="v*")
+# FIXME: This is a temporary way of dealing with a non-existent remote tag,
+# causing the `git describe` command to fail...
+if [ $? -neq 0 ]; then
+  echo "No tag has ever been created, You should create one manually, like v0.0.0."
+  exit 1
+fi
+
+echo "Did you update the VERSION in lib/checklister/version.rb ?"
+read -p "It should be > $latest_tag [y/N]: " response
+
+if [[ $response =~ ^(y|Y)$ ]]; then
+  # Build the gem
+  echo "Preparing the gem package in pkg/*"
+  # Output format: checklister 1.0.2 built to pkg/checklister-1.0.2.gem.
+  version="$(script/package | grep Version: | awk '{print $2}')"
+  # Did we get a version?
+  if [ -z "$version" ]; then echo "You have to give me a semantic tag, like 1.0.0"; exit 1; fi
+  echo "Tagging your code to v$version"
+  echo ""
+
+  echo "Make sure you are GPG ready."
+  echo "You should have run this at one point:"
+  echo "$ git config --global user.signingkey [gpg-key-id]"
+  git tag -s "v$version" -m "Release v$version"
+  git push origin
+  git push origin "v$version"
+  echo ""
+  echo "Publishing to remote gem repository."
+  bundle exec gem push pkg/checklister-${version}.gem
+else
+  echo "You canceled the operation, nothing was done."
+fi
