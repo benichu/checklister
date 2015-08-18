@@ -3,6 +3,7 @@
 > STILL UNDER ACTIVE DEVELOPMENT, NOT RELEASED YET
 
 [![Build Status](https://travis-ci.org/benichu/checklister.svg)](https://travis-ci.org/benichu/checklister)
+[![Dependency Status](https://gemnasium.com/benichu/checklister.svg)](https://gemnasium.com/benichu/checklister)
 
 ## Description
 
