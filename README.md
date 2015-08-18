@@ -76,7 +76,7 @@ To install or update your development environment, run `script/bootstrap`.
 3. Run `script/test` to ensure your development setup is sane.
 5. Read `CONTRIBUTING.md` for contribution guidelines.
 6. Run `bundle exec guard`
-7. You can run a REPL: `bin/console`
+7. You can run a REPL: `script/console`
 
 ### Testing
 
