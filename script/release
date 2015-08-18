@@ -13,12 +13,6 @@ echo "Fetching origin with all remote tags..."
 git fetch -t origin
 
 latest_tag=$(git describe origin --abbrev=0 --match="v*")
-# FIXME: This is a temporary way of dealing with a non-existent remote tag,
-# causing the `git describe` command to fail...
-if [[ $? -neq 0 ]]; then
-  echo "No tag has ever been created, You should create one manually, like v0.0.0."
-  exit 1
-fi
 
 echo "Did you update the VERSION in lib/checklister/version.rb ?"
 read -p "It should be > $latest_tag [y/N]: " response
