@@ -87,6 +87,15 @@ You can write tests using `rspec v3+` syntax in the `spec` folder. To run the te
 This project is documented with the [YARD syntax](http://www.rubydoc.info/gems/yard/file/docs/GettingStarted.md),
 every time the gem is published a documentation will automatically be generated at [rubydoc.info](http://www.rubydoc.info/gems/checklister).
 
+You should always check how your documentation looks like from time to time.
+Here is a convenient way for you to run a yard server:
+
+```bash
+$ script/doc
+```
+
+You can bow open your browser at [http://localhost:8808/](http://localhost:8808/)
+
 ## Release
 
     Make sure you are all setup first: http://guides.rubygems.org/publishing/#publishing-to-rubygemsorg
