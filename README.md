@@ -81,9 +81,11 @@ You can write tests using `rspec v3+` syntax in the `spec` folder. To run the te
 
 ## Release
 
-To prepare a release, run `script/release`. This will package a new version of the `checklister` gem and release it to [](https://rubygems.org/gems/checklister).
+To prepare a release, run `script/release`. This will package a new version of the `checklister` gem and release it to [https://rubygems.org/gems/checklister](https://rubygems.org/gems/checklister).
 
 ## Authors
+
+    Make sure you are all setup first: http://guides.rubygems.org/publishing/#publishing-to-rubygemsorg
 
 Checklister is written and maintained by [Benjamin Thouret](https://github.com/benichu) and [Manon Deloupy](https://github.com/mdeloupy).
 
