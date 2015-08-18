@@ -114,8 +114,8 @@ To prepare a release, run `script/release`. This will package a new version of t
 
 ### Wishlist
 
-- [ ] Select a milestone to where we add a ticket
-- [ ] Select a checklist
+- [ ] Select a milestone from a list populated based on github/gitlab API
+- [ ] Select a checklist from an history list
 
 ## Authors
 
