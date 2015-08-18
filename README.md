@@ -79,6 +79,10 @@ To install or update your development environment, run `script/bootstrap`.
 
 You can write tests using `rspec v3+` syntax in the `spec` folder. To run the tests, run `script/test`.
 
+## Release
+
+To prepare a release, run `script/release`. This will package a new version of the `checklister` gem and release it to [](https://rubygems.org/gems/checklister).
+
 ## Authors
 
 Checklister is written and maintained by [Benjamin Thouret](https://github.com/benichu) and [Manon Deloupy](https://github.com/mdeloupy).
