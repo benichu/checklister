@@ -27,7 +27,7 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 
 ### Requirements
 
-* Ruby 1.9+
+* Ruby 2.0+
 * RubyGems 1.9+
 * a Gitlab and/or Github user authentication token
 
