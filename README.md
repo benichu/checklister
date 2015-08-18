@@ -59,7 +59,7 @@ $ checklister --file https://raw.githubusercontent.com/benichu/checklister/maste
 ### Dependencies
 
 * rbenv or rvm
-* Ruby 1.9+
+* Ruby 2.0+
 * RubyGems 1.9+ (`gem update --system `)
 * Bundler 1.10+
 
