@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "===> Starting the documentation server..."
+bundle exec yard server --port 8808 --reload
