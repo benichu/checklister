@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/benichu/checklister.svg)](https://travis-ci.org/benichu/checklister)
 [![Dependency Status](https://gemnasium.com/benichu/checklister.svg)](https://gemnasium.com/benichu/checklister)
 [![Gem Version](https://badge.fury.io/rb/checklister.svg)](http://badge.fury.io/rb/checklister)
+[![Code Climate](https://codeclimate.com/github/benichu/checklister/badges/gpa.svg)](https://codeclimate.com/github/benichu/checklister)
 
 ## Description
 
