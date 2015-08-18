@@ -98,11 +98,24 @@ $ script/doc
 
 You can now open your browser at [http://localhost:8808/](http://localhost:8808/)
 
-## Release
+### Release
 
     Make sure you are all setup first: http://guides.rubygems.org/publishing/#publishing-to-rubygemsorg
 
 To prepare a release, run `script/release`. This will package a new version of the `checklister` gem and release it to [https://rubygems.org/gems/checklister](https://rubygems.org/gems/checklister).
+
+## Roadmap
+
+### Version 1.0
+
+- [ ] Create a new Issue based on a specific markdown file (remote or local path)
+- [ ] Connect to gitlab account
+- [ ] Connect to github account
+
+### Wishlist
+
+- [ ] Select a milestone to where we add a ticket
+- [ ] Select a checklist
 
 ## Authors
 
