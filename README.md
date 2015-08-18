@@ -94,7 +94,7 @@ Here is a convenient way for you to run a yard server:
 $ script/doc
 ```
 
-You can bow open your browser at [http://localhost:8808/](http://localhost:8808/)
+You can now open your browser at [http://localhost:8808/](http://localhost:8808/)
 
 ## Release
 
