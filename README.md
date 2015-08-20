@@ -10,7 +10,7 @@
 
 ## Description
 
-Checklister is a CLI packaged as a Ruby gem giving you the power to transform any markdown file or url checklist into an actionable gitlab (and soon github) issue.
+Checklister is a CLI packaged as a Ruby gem giving you the power to transform any markdown file or url checklist into an actionable gitlab or github issue.
 
 ### Why using checklists
 
@@ -37,17 +37,13 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 
     TO RELEASE
 
-### Set up Gitlab Authentication
+### Setup Gitlab or Github Authentication
 
 ```bash
-$ checklister setup gitlab
+$ checklister setup
 ```
 
-### Set up Github Authentication
-
-```bash
-$ checklister setup github
-```
+Answer the questions and the information will be saved for later use in a configuration json file.
 
 ### CLI
 

@@ -1,0 +1,7 @@
+services:
+  - endpoint: "https://www.gitlab.com/api"
+    private_token: "supersecret"
+    label: "Gitlab"
+  - endpoint: "https://api.github.com"
+    private_token: "supersecret"
+    label: "Github"
