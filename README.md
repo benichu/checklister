@@ -56,6 +56,14 @@ $ checklister --file https://raw.githubusercontent.com/benichu/checklister/maste
               --new_issue_url https://github.com/benichu/checklister/issues
 ```
 
+The initial markdown file at `https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md` is the following :
+
+    INSERT SCREENSHOT HERE
+
+Once the file is parsed, an issue will be created with its content. In this case, the issue would be :
+
+    INSERT SCREENSHOT HERE
+
 ## Development Setup
 
 ### Dependencies
