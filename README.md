@@ -56,13 +56,13 @@ $ checklister --file https://raw.githubusercontent.com/benichu/checklister/maste
               --new_issue_url https://github.com/benichu/checklister/issues
 ```
 
-The initial markdown file at `https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md` is the following :
+In this example, the initial markdown file at `https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md` is the following :
 
-    INSERT SCREENSHOT HERE
+![Simple Checklist](http://i.imgur.com/KUXThqu.png)
 
-Once the file is parsed, an issue will be created with its content. In this case, the issue would be :
+Once the file is parsed, a Github issue will be created with its content. In this case, the issue would be :
 
-    INSERT SCREENSHOT HERE
+![Github Issue](http://i.imgur.com/1IwGKaS.png)
 
 ## Development Setup
 
