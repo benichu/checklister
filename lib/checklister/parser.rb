@@ -6,7 +6,6 @@
 #
 module Checklister
   class Parser
-
     # Params :
     # - file : the path of the markdown file to parse
     def initialize(file_path)
@@ -14,7 +13,7 @@ module Checklister
     end
 
     # What should the issue title be ?
-    # The headline of the markdown document, minus any markdown-related caracter(# or =)
+    # The plain text headline of the markdown document
     # Returns a string
     def parse_title
       "This is the title"
