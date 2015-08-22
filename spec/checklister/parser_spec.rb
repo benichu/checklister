@@ -5,13 +5,13 @@ describe Checklister::Parser do
 
   describe "#parse_title" do
     it "should return a parsed title" do
-      expect(parser.parse_title).to eq("This is the title")
+      expect(parser.parse_title).to eq("Simple Checklist")
     end
   end
 
   describe "#parse_body" do
     it "should return a parsed body" do
-      expect(parser.parse_body).to eq("This is the body")
+      expect(parser.parse_body).to eq("When you need to accomplish stuff, follow those steps.\n- [ ] Step 1\n- [ ] Step 2\n- [ ] Step 3")
     end
   end
 

@@ -16,14 +16,18 @@ module Checklister
     # The plain text headline of the markdown document
     # Returns a string
     def parse_title
-      "This is the title"
+      # Find first h1
+      # Chomp `# `
+      # Return result
     end
 
     # What should the issue body be ?
     # Context (if any) + actual checklist, without the subtitles
     # Returns a string
     def parse_body
-      "This is the body"
+      context = get_context
+      checklist = get_checklist
+      "#{context}\n#{checklist}"
     end
 
     # Returns a ruby object, example :
@@ -36,6 +40,19 @@ module Checklister
         title: parse_title,
         body: parse_body
       }
+    end
+
+    private
+
+    def get_context
+      # Find first subtitle "## Context"
+      # Return the text that's between this subtitle and the next one
+    end
+
+    def get_checklist
+      # Find first subtitle "## Checklist"
+      # Return the text between this subtitle and the next one (same level)
+      # Between each `- [ ]`, add `\n`
     end
   end
 end
