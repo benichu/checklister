@@ -16,9 +16,14 @@ module Checklister
     # The plain text headline of the markdown document
     # Returns a string
     def parse_title
-      # Find first h1
-      # Chomp `# `
-      # Return result
+      @file_content.each_line do |line|
+        if line.start_with?("# ")
+          # Remove any markdown element
+          # Remove extra `\n` at the end of the string if any
+          return line.sub("# ", "").sub("\n", "")
+          break
+        end
+      end
     end
 
     # What should the issue body be ?
