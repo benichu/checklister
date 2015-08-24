@@ -22,7 +22,7 @@ module Checklister
     end
 
     private
-    #
+
     # The title should be the plain text headline of the markdown document
     #
     # @return [String] the parsed title
