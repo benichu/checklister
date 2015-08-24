@@ -37,13 +37,13 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 
     TO RELEASE
 
-### Setup Gitlab Authentication
+### Set up Gitlab Authentication
 
 ```bash
 $ checklister setup gitlab
 ```
 
-### Setup Github Authentication
+### Set up Github Authentication
 
 ```bash
 $ checklister setup github
@@ -100,7 +100,7 @@ You can now open your browser at [http://localhost:8808/](http://localhost:8808/
 
 ### Release
 
-    Make sure you are all setup first: http://guides.rubygems.org/publishing/#publishing-to-rubygemsorg
+    Make sure you are all set up first: http://guides.rubygems.org/publishing/#publishing-to-rubygemsorg
 
 To prepare a release, run `script/release`. This will package a new version of the `checklister` gem and release it to [https://rubygems.org/gems/checklister](https://rubygems.org/gems/checklister).
 
