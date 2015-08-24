@@ -45,8 +45,20 @@ module Checklister
     end
 
     def get_context
-      # Find first subtitle "## Context"
-      # Return the text that's between this subtitle and the next one
+      context = ""
+      @file_content.each_line do |line|
+        if line.start_with?("## Context")
+          # Also go to next line
+          next
+        end
+        context << line
+        next
+        if line.start_with?("##")
+          # Means we're at the end of the Context section
+          break
+        end
+      end
+      context
     end
 
     def get_checklist
