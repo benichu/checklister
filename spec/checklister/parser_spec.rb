@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Checklister::Parser do
-  let(:parser) { Checklister::Parser.new("./spec/fixtures/simple-checklist.md") }
+  let(:parser){ Checklister::Parser.new("./spec/fixtures/simple-checklist.md") }
 
   describe "#parse_title" do
     it "should return a parsed title" do
