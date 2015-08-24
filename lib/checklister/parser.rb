@@ -1,5 +1,5 @@
 module Checklister
-  # Parse a markdown file and return the issue params.
+  # Parse a markdown file and return a hash of params.
   #
   # @example
   #   {
@@ -13,7 +13,17 @@ module Checklister
       @file_content = File.open(file_path).read
     end
 
-    # The issue title should be the plain text headline of the markdown document
+    # @return [Hash] a hash of params
+    def to_params
+      {
+        title: parse_title,
+        body: parse_body
+      }
+    end
+
+    private
+    #
+    # The title should be the plain text headline of the markdown document
     #
     # @return [String] the parsed title
     def parse_title
@@ -27,7 +37,7 @@ module Checklister
       end
     end
 
-    # The issue body is composed of the parsed context (if any) and the checklist
+    # The body is composed of the parsed context (if any) and the checklist
     #
     # @return [String] the parsed body
     def parse_body
@@ -35,16 +45,6 @@ module Checklister
       checklist = get_checklist
       "#{context}\n#{checklist}"
     end
-
-    # @return [Hash] the issue params (title & body)
-    def issue_params
-      {
-        title: parse_title,
-        body: parse_body
-      }
-    end
-
-    private
 
     def get_context
       # Find first subtitle "## Context"
