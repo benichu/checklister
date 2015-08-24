@@ -1,20 +1,21 @@
-# Parse a markdown file to return an exploitable ruby object :
-#   {
-#     title: "Title",
-#     body: "## Mardown Body context\n## Checklist\nMardown Body checklist"
-#   }
-#
 module Checklister
+  # Parse a markdown file and return the issue params.
+  #
+  # @example
+  #   {
+  #     title: "Title",
+  #     body: "## Mardown Body context\n## Checklist\nMardown Body checklist"
+  #   }
+  #
   class Parser
-    # Params :
-    # - file : the path of the markdown file to parse
+    # @param [String] file_path the path of the markdown file to parse
     def initialize(file_path)
       @file_content = File.open(file_path).read
     end
 
-    # What should the issue title be ?
-    # The plain text headline of the markdown document
-    # Returns a string
+    # The issue title should be the plain text headline of the markdown document
+    #
+    # @return [String] the parsed title
     def parse_title
       @file_content.each_line do |line|
         if line.start_with?("# ")
@@ -26,20 +27,16 @@ module Checklister
       end
     end
 
-    # What should the issue body be ?
-    # Context (if any) + actual checklist, without the subtitles
-    # Returns a string
+    # The issue body is composed of the parsed context (if any) and the checklist
+    #
+    # @return [String] the parsed body
     def parse_body
       context = get_context
       checklist = get_checklist
       "#{context}\n#{checklist}"
     end
 
-    # Returns a ruby object, example :
-    # {
-    #   title: "Title",
-    #   body: "## Mardown Body context\n## Checklist\nMardown Body checklist"
-    # }
+    # @return [Hash] the issue params (title & body)
     def issue_params
       {
         title: parse_title,
