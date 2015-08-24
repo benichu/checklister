@@ -41,9 +41,7 @@ module Checklister
     #
     # @return [String] the parsed body
     def parse_body
-      context = get_context
-      checklist = get_checklist
-      "#{context}\n#{checklist}"
+      "#{get_context}\n#{get_checklist}"
     end
 
     def get_context
@@ -52,9 +50,13 @@ module Checklister
     end
 
     def get_checklist
-      # Find first subtitle "## Checklist"
-      # Return the text between this subtitle and the next one (same level)
-      # Between each `- [ ]`, add `\n`
+      checklist = ""
+      @file_content.each_line do |line|
+        if line.start_with?("- [ ]")
+          checklist << line
+        end
+      end
+      checklist
     end
   end
 end
