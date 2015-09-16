@@ -19,7 +19,7 @@ module Checklister
   # ## Setting/Selecting the configuration values
   #
   # When using the *checklister* binary, you can set one of the many publishing destinations
-  # you have access to, via to possible ways:
+  # you have access to, via two possible ways:
   #
   # ### 1. CLI Configuration Values
   #
@@ -30,7 +30,7 @@ module Checklister
   # ```bash
   # $ checklister --endpoint=https://api.github.com --private_token==supersecret create ...
   # ```
-  # NOTE: Every time you pass credentials via command line options, they will overide any configuration
+  # NOTE: Every time you pass credentials via command line options, they will override any configuration
   # file you have previously set .
   #
   # ### 2. Configuration File
@@ -47,7 +47,7 @@ module Checklister
   # ```bash
   # $ checklister --config=/another/path/to/my_checklister.json setup
   # ```
-  # As soon as you have setup one or many publishing destinations, every time you will be using
+  # As soon as you have set up one or many publishing destinations, every time you will be using
   # a *checklister* command you will be prompted to select which service to use, for example:
   #
   # ```bash
@@ -71,16 +71,16 @@ module Checklister
   #
   class Configuration
     # List of all the configuration attributes stored for use within the gem
-    ATTRIBUTES = [:endpoint, :private_token, :label]
+    ATTRIBUTES = [:endpoint, :private_token, :label, :kind]
 
     # List of accessor attributes
-    attr_accessor :endpoint, :private_token
+    attr_accessor :endpoint, :private_token, :kind
     # List of writer attributes (with a reader defined in the class definition)
     attr_writer :label
 
     # Apply a configuration hash to a configuration instance
     #
-    # @example Overide one a the configuration attributes
+    # @example Override one of the configuration attributes
     #   config = Checklister::Configuration.new
     #   config.apply(private_token: 'supersecret')
     #   config.private_token #=> "supersecret"
@@ -111,17 +111,18 @@ module Checklister
 
     # The configuration instance formatted as a stringified hash
     #
-    # @example Overide one a the configuration attributes
+    # @example Override one of the configuration attributes
     #   config = Checklister::Configuration.new
     #   config.to_hash #=> { "endpoint" => "https://gitlab.example.com/api/v3", ..., "private_token" => "supersecret" }
     #
     # @return [Hash] the configuration object as a Hash
     #
     def to_hash
-      ATTRIBUTES.inject({}) do |hash, attr|
+      config_hash = ATTRIBUTES.inject({}) do |hash, attr|
         hash["#{attr}"] = instance_variable_get("@#{attr}")
         hash
       end
+      Checklister::Sanitizer.symbolize config_hash
     end
 
     # Write a configuration summary to STDOUT, useful for output in the CLI
@@ -138,7 +139,7 @@ module Checklister
     # Symbolize keys and remove nil or duplicate attributes
     # The attributes usually passed to our configuration class by the CLI
     # are usually full of duplicates and unconsistant keys, we make sure
-    # to cleanup that input, before doing any configuration work.
+    # to clean up that input, before doing any configuration work.
     #
     # @param attributes [Hash] list of key/values
     # @return [Hash] a clean list of key/values
@@ -146,7 +147,7 @@ module Checklister
     def prepare_attributes(attributes)
       # Convert string keys to symbols
       symboled_attributes = Checklister::Sanitizer.symbolize attributes
-      # Cleanup user_attributes from unwanted, nil and duplicate options
+      # Clean up user_attributes from unwanted, nil and duplicate options
       symboled_attributes.select { |key, _| ATTRIBUTES.include? key }
                          .delete_if { |_, v| v.nil? }
     end

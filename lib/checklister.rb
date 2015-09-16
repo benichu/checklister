@@ -1,8 +1,14 @@
-require "checklister/version"
-require "checklister/parser"
-require "checklister/sanitizer"
 require "checklister/configuration"
 require "checklister/configuration_file"
+require "checklister/issue"
+require "checklister/parser"
+require "checklister/sanitizer"
+require "checklister/version"
+
+# API Clients
+require "checklister/client"
+require "checklister/gitlab/project"
+require "checklister/gitlab/issue"
 
 module Checklister
   class << self

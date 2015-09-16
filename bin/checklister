@@ -27,13 +27,20 @@ pre do |global_options,command,options,args|
     if global_options[:endpoint]
       config_options = global_options
     elsif config_file.exist?
-      puts "* Which Issue Service would you like to use?"
       saved_services = config_file.services
-      saved_services.each_with_index do |service, index|
-        puts "[#{index+1}] #{service[:endpoint]}"
+      if saved_services.size > 1
+        puts "* Which Issue Service would you like to use?"
+        saved_services.each_with_index do |service, index|
+          line = []
+          line << "[#{index+1}] #{service[:endpoint]}"
+          line << "(#{service[:label]})" if service[:label]
+          puts line.join(" ")
+        end
+        choice = STDIN.gets.to_i
+        raise("You need to select a service.") if choice < 1
+      else
+        choice = 1
       end
-      choice = STDIN.gets.to_i
-      raise("You need to select a service.") if choice < 1
       service_selected = saved_services[choice-1]
       config_options = service_selected
     else
@@ -71,6 +78,7 @@ command :setup do |c|
       raise("You need to select a service.") if choice < 1
       service_selected = ISSUE_SERVICES[choice.to_s]
     end
+    data["kind"] = service_selected
 
     puts ""
     puts "* We are going to help you set up the #{service_selected} service"
@@ -105,11 +113,32 @@ command :setup do |c|
   end
 end
 
-desc "Describe create here"
-arg_name "Describe arguments to create here"
-command :create do |c|
+desc "Transform a markdown file or url checklist into an actionable issue"
+command :new do |c|
+  c.flag [:c,:checklist], desc: "Set the markdown checklist file path", required: true
   c.action do |global_options,options,args|
-    puts "create command ran"
+    client = Checklister::Client.new(Checklister.config.to_hash).get_api_client
+    gitlab_project = Checklister::Gitlab::Project.new(client)
+    checklist_path = options[:checklist]
+
+    puts "* Type the some letters of your project's name..."
+    project_like = STDIN.gets.chomp
+    projects = gitlab_project.filtered_by_name(project_like)
+    default_project_id = projects.first[:id]
+    projects.each do |project|
+      puts "%-5s %-100s" % ["[#{project[:id]}]", project[:name]]
+    end
+    puts "* Pick your project Id, defaults to [#{default_project_id}]"
+    choice = STDIN.gets.chomp
+    project_id = choice == "" ? default_project_id : choice
+    project = gitlab_project.get(project_id)
+    puts "* Creating a checklist issue from #{checklist_path}"
+    puts "  to the project: #{project[:name]}"
+    parsed_checklist = Checklister::Parser.new(checklist_path)
+    issue = Checklister::Gitlab::Issue.new(client).create(project_id, parsed_checklist.to_params)
+    puts "------------->"
+    puts "| Check it out: #{Checklister.config.endpoint.gsub("/api/v3", "")}/#{project[:path_with_namespace]}/issues/#{issue.id}"
+    puts "------------->"
   end
 end
 
