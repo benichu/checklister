@@ -1,65 +1,116 @@
 #!/usr/bin/env ruby
-require 'gli'
-require 'checklister'
+require "gli"
+require "checklister"
 
 include GLI::App
 
-program_desc 'Describe your application here'
+ISSUE_SERVICES = { "1" => "gitlab", "2" => "github" }.freeze
+
+program_desc "gives you the power to transform any markdown file or url checklist into an actionable gitlab and github issue."
 
 version Checklister::VERSION
-
 subcommand_option_handling :normal
 arguments :strict
+sort_help :manually
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+# Flags
+flag [:c,:config], default_value: File.join(ENV["HOME"],".checklister.yml"),
+                   desc: "Set the saved configuration path"
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+flag [:s,:service], must_match: ISSUE_SERVICES.values
+flag [:e,:endpoint], desc: "Set the issue service API endpoint"
+flag [:p,:private_token], desc: "Set your private token to access the issue API service"
 
-desc 'Describe setup here'
-arg_name 'Describe arguments to setup here'
-command :setup do |c|
-  c.desc 'Describe a switch to setup'
-  c.switch :s
-
-  c.desc 'Describe a flag to setup'
-  c.default_value 'default'
-  c.flag :f
-  c.action do |global_options,options,args|
-
-    # Your command logic here
-
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
-
-    puts "setup command ran"
+pre do |global_options,command,options,args|
+  unless command.name.to_s == "setup"
+    config_file = Checklister::ConfigurationFile.new(global_options["config"])
+    if global_options[:endpoint]
+      config_options = global_options
+    elsif config_file.exist?
+      puts "* Which Issue Service would you like to use?"
+      saved_services = config_file.services
+      saved_services.each_with_index do |service, index|
+        puts "[#{index+1}] #{service[:endpoint]}"
+      end
+      choice = STDIN.gets.to_i
+      raise("You need to select a service.") if choice < 1
+      service_selected = saved_services[choice-1]
+      config_options = service_selected
+    else
+      config_options = {}
+    end
+    Checklister.configure(config_options)
+  else
+    true
   end
 end
 
-desc 'Describe create here'
-arg_name 'Describe arguments to create here'
+desc "Show current configuration settings"
+command :settings do |c|
+  c.action do |global_options,options,args|
+    puts "---------------------"
+    Checklister.config.to_stdout
+    puts "---------------------"
+  end
+end
+
+desc "Save your gitlab or github settings for later"
+command :setup do |c|
+  c.action do |global_options,options,args|
+    data = {}
+    config_file = Checklister::ConfigurationFile.new(global_options["config"])
+
+    if global_options[:service]
+      service_selected = global_options[:service]
+    else
+      puts "* Which Issue Service would you like to setup?"
+      ISSUE_SERVICES.each do |index, service|
+        puts "[#{index}] #{service}"
+      end
+      choice = STDIN.gets.to_i
+      raise("You need to select a service.") if choice < 1
+      service_selected = ISSUE_SERVICES[choice.to_s]
+    end
+
+    puts ""
+    puts "* We are going to help you set up the #{service_selected} service"
+
+    if service_selected == "gitlab"
+      puts ""
+      puts "** What is your gitlab endpoint? (Ex: https://gitlab.com/api/v3)"
+      choice = STDIN.gets.chomp
+      raise("You need to type a endpoint.") if choice == ""
+      data["endpoint"] = choice
+    elsif service_selected == "github"
+      data["endpoint"] = "https://api.github.com"
+    end
+
+    puts ""
+    puts "** What is your private token with the #{service_selected} service?"
+    choice = STDIN.gets.chomp
+    raise("You need to type a private token.") if choice == ""
+    data["private_token"] = choice
+
+    puts ""
+    puts "** You can give a label to #{data["endpoint"]} (you can leave it blank too)"
+    choice = STDIN.gets.chomp
+    if choice != ""
+      data["label"] = choice
+    end
+
+    config_file.add_service data
+    config_file.persist
+    puts ""
+    puts "* Your configuration data has been saved at #{global_options[:config]}"
+  end
+end
+
+desc "Describe create here"
+arg_name "Describe arguments to create here"
 command :create do |c|
   c.action do |global_options,options,args|
     puts "create command ran"
   end
-end
-
-pre do |global,command,options,args|
-  # Pre logic here
-  # Return true to proceed; false to abort and not call the
-  # chosen command
-  # Use skips_pre before a command to skip this block
-  # on that command only
-  true
-end
-
-post do |global,command,options,args|
-  # Post logic here
-  # Use skips_post before a command to skip this
-  # block on that command only
 end
 
 on_error do |exception|
