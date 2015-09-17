@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "coveralls" , "~> 0.8.2"
-  spec.add_dependency "dotenv"    , "~> 2.0.2"
   spec.add_dependency "gitlab"    , "~> 3.4.0"
   spec.add_dependency "gli"       , "~> 2.13"
 
