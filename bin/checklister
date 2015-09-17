@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require "gli"
 require "checklister"
+require 'gitlab'
 
 include GLI::App
 
@@ -79,7 +80,7 @@ command :setup do |c|
       puts ""
       puts "** What is your gitlab endpoint? (Ex: https://gitlab.com/api/v3)"
       choice = STDIN.gets.chomp
-      raise("You need to type a endpoint.") if choice == ""
+      raise("You need to type an endpoint.") if choice == ""
       data["endpoint"] = choice
     elsif service_selected == "github"
       data["endpoint"] = "https://api.github.com"
@@ -111,6 +112,13 @@ command :create do |c|
   c.action do |global_options,options,args|
     puts "create command ran"
   end
+end
+
+desc "New issue"
+command :new_issue do |c|
+  checklist = Checklister::Parser.new("./examples/simple-checklist.md")
+  Gitlab.create_issue(469016, checklist.to_params[:title], description: checklist.to_params[:body])
+  puts "Go check if that worked !"
 end
 
 on_error do |exception|
