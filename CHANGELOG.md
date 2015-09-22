@@ -3,12 +3,10 @@ All notable changes to this project will be documented in this file.
 
 NOTE: the project follows [Semantic Versioning](http://semver.org/).
 
-## 1.0.0 - YYYY-MM-DD
-
-### Dependencies
-
-- [Gli](https://github.com/davetron5000/gli)
+## 0.0.9 - 2015-09-22
 
 ### Added
 
-- #4 - Add a CHANGELOG
+- [feature] Create a new Issue based on a specific markdown file (local path)
+- [feature] Connect to gitlab account
+- [feature] Save your gitlab services settings to local file
