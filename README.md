@@ -110,16 +110,23 @@ To prepare a release, run `script/release`. This will package a new version of t
 
 ## Roadmap
 
+### Version 0.9
+
+- [x] [feature] Create a new Issue based on a specific markdown file (local path)
+- [x] [feature] Connect to gitlab account
+
 ### Version 1.0
 
-- [ ] Create a new Issue based on a specific markdown file (remote or local path)
-- [ ] Connect to gitlab account
-- [ ] Connect to github account
+- [ ] [documentation] Yard documentation updated
+- [ ] [feature] Create a new Issue based on a specific markdown file (remote path)
+- [ ] [feature] Connect to github account
 
 ### Wishlist
 
-- [ ] Select a milestone from a list populated based on github/gitlab API
-- [ ] Select a checklist from an history list
+- [ ] [dev] Better step by step DSL for CLI interactions with user
+- [ ] [feature] Select a milestone from a list populated based on github/gitlab API
+- [ ] [feature] Select a checklist from an history list
+- [ ] [feature] Connect to a bitbucket account
 
 ## Authors
 
