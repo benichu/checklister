@@ -45,11 +45,22 @@ $ checklister setup
 
 Answer the questions and the information will be saved for later use in a configuration json file.
 
+### Check your saved configuration
+
+```bash
+$ checklister settings
+```
+
 ### CLI
 
 ```bash
-$ checklister --file https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md \
-              --new_issue_url https://github.com/benichu/checklister/issues
+$ checklister new --checklist /path/to/simple-checklist.md
+```
+
+or for a remote path (NOT IMPLEMENTED YET)
+
+```bash
+$ checklister new --checklist https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md
 ```
 
 In this example, the initial markdown file at `https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md` is the following :
