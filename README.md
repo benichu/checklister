@@ -37,7 +37,7 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 
     TO RELEASE
 
-### Setup Gitlab or Github Authentication
+### Setup Gitlab Authentication
 
 ```bash
 $ checklister setup
