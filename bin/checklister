@@ -121,7 +121,7 @@ command :new do |c|
     gitlab_project = Checklister::Gitlab::Project.new(client)
     checklist_path = options[:checklist]
 
-    puts "* Type the some letters of your project's name..."
+    puts "* Type some letters of your project's name..."
     project_like = STDIN.gets.chomp
     projects = gitlab_project.filtered_by_name(project_like)
     default_project_id = projects.first[:id]
