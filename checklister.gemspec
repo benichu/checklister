@@ -10,8 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ben@2ret.com", "mdeloupy@gmail.com"]
 
   spec.summary       = %q{Markdown checklists to gitlab or github issue.}
-  spec.description   = %q{NOT READY!
-                          Checklister is a CLI packaged as a Ruby gem giving you the power to transform any markdown file or url checklist into an actionable gitlab (and soon github) issue.}
+  spec.description   = %q{Checklister is a CLI packaged as a Ruby gem giving you the power to transform any markdown file or url checklist into an actionable gitlab (and soon github) issue.}
   spec.homepage      = "https://github.com/benichu/checklister"
   spec.license       = "MIT"
 
