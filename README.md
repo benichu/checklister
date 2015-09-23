@@ -1,6 +1,6 @@
 # Checklister
 
-> STILL UNDER ACTIVE DEVELOPMENT, NOT RELEASED YET
+> STILL UNDER ACTIVE DEVELOPMENT
 
 [![Build Status](https://travis-ci.org/benichu/checklister.svg)](https://travis-ci.org/benichu/checklister)
 [![Dependency Status](https://gemnasium.com/benichu/checklister.svg)](https://gemnasium.com/benichu/checklister)
@@ -17,7 +17,7 @@ Checklister is a CLI packaged as a Ruby gem giving you the power to transform an
 A checklist is an ideal tool to help people remembering all of the steps required to accomplish complicated tasks and objectives.
 Using a checklist enforces best practices, even if they seem obvious at first, preventing costly mistakes.
 
-### The Checklist Manifesto
+### the checklist manifesto
 
 A great book to read for more inspiration about the power of checklist:
 
