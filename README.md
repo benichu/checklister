@@ -35,7 +35,9 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 
 ### Install/Update gem
 
-    TO RELEASE
+```bash
+$ gem install checklister
+```
 
 ### Setup Gitlab Authentication
 
