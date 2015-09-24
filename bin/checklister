@@ -126,7 +126,7 @@ command :new do |c|
     projects = gitlab_project.filtered_by_name(project_like)
     default_project_id = projects.first[:id]
     projects.each do |project|
-      puts "%-5s %-100s" % ["[#{project[:id]}]", project[:name]]
+      puts "%-5s %-100s" % ["[#{project[:id]}]", project[:name_with_namespace]]
     end
     puts "* Pick your project Id, defaults to [#{default_project_id}]"
     choice = STDIN.gets.chomp
