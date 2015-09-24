@@ -16,7 +16,7 @@ module Checklister
     # Initialize all the issue service options required to be able to interact with it
     #
     # @example Initialize a gitlab client's options
-    #   gitlab_client = Checklister::Client.new(kind: "gitlab", endpoint: "https://gitlab.com/api/v3", private_token: "supersecret)
+    #   gitlab_client = Checklister::Client.new(kind: "gitlab", endpoint: "https://gitlab.com/api/v3", private_token: "supersecret")
     #
     # @param options [Hash] list of key/values to apply to the appropriately created API client
     # @option opts [String] :kind The issue service identifier ('github', 'gitlab', ...)
@@ -39,7 +39,7 @@ module Checklister
     # Initialize the issue service API client
     #
     # @example get an API client
-    #   gitlab_client = Checklister::Client.new(kind: "gitlab", endpoint: "https://gitlab.com/api/v3", private_token: "supersecret)
+    #   gitlab_client = Checklister::Client.new(kind: "gitlab", endpoint: "https://gitlab.com/api/v3", private_token: "supersecret")
     #   gtilab_client.get_api_client
     #
     # @return [Object] the API client based on our initialized options
