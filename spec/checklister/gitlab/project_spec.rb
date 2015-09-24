@@ -6,6 +6,19 @@ describe Checklister::Gitlab::Project do
   end
   let(:client) { Checklister::Client.new(gitlab_config).get_api_client }
 
+  describe ".get" do
+    let(:project) { Checklister::Gitlab::Project.new(client).get(1) }
+
+    before(:each) do
+      stub_request(:get, /www.gitlab.com/).
+        to_return(status: 200, body: load_fixture("project"), headers: {})
+    end
+
+    it "returns a valid record" do
+      expect(project).to include(id: 1, name: "Brute", description: nil)
+    end
+  end
+
   describe ".all" do
     let(:all_projects) { Checklister::Gitlab::Project.new(client).all }
 

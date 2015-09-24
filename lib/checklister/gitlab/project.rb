@@ -2,7 +2,6 @@ module Checklister
   module Gitlab
     class Project
       DEFAULT_OPTIONS = { order_by: "id", sort: "asc", per_page: "10" }
-      ATTRIBUTES = %w(id name description) # NOTE: For information
 
       def initialize(client)
         @client = client
