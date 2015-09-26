@@ -7,6 +7,7 @@
 [![Gem Version](https://badge.fury.io/rb/checklister.svg)](http://badge.fury.io/rb/checklister)
 [![Code Climate](https://codeclimate.com/github/benichu/checklister/badges/gpa.svg)](https://codeclimate.com/github/benichu/checklister)
 [![Coverage Status](https://coveralls.io/repos/benichu/checklister/badge.svg?branch=master&service=github)](https://coveralls.io/github/benichu/checklister?branch=master)
+[![MIT license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/benichu/checklister/blob/master/LICENSE)
 
 ## Description
 
