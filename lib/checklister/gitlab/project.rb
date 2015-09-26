@@ -24,7 +24,8 @@ module Checklister
 
     class Project
       # Default options that we want to pass when querying the gitlab project index
-      DEFAULT_OPTIONS = { order_by: "id", sort: "asc", per_page: "200" }
+      DEFAULT_OPTIONS = { order_by: "id", sort: "asc", per_page: "100" }
+      MAX_PAGES = 5
 
       # Initialize a gitlab project instance
       #
@@ -49,16 +50,24 @@ module Checklister
       # @return [Array] and array of project's properties as Hash
       def all(options = {})
         query_options = DEFAULT_OPTIONS.merge options
-        @client.projects(query_options).map { |p| ProjectDecorator.new(p).to_hash }
+        projects = []
+        page = 1
+        while page <= MAX_PAGES
+          projects += @client.projects(query_options.merge(page: page)).map { |p| ProjectDecorator.new(p).to_hash }
+          if projects.empty?
+            page = MAX_PAGES
+          else
+            page += 1
+          end
+        end
+        projects
       end
 
       # Get gitlab's projects based on a search string (LIKE on project#name)
       # @param name [String] partial project's name
-      # @param options [optional, Hash] query options
       # @return [Array] and array of project's properties as Hash
-      def filtered_by_name(name, options = {})
-        query_options = DEFAULT_OPTIONS.merge options
-        @client.project_search(name, query_options).map { |p| ProjectDecorator.new(p).to_hash }
+      def filtered_by_name(name)
+        all.select { |p| p[:name].downcase.include? name.downcase }
       end
     end
   end
