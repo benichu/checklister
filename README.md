@@ -134,7 +134,7 @@ To prepare a release, run `script/release`. This will package a new version of t
 - [ ] [improvements] CLI improvements based on first test run with real users
 - [ ] [documentation] Yard documentation updated
 - [ ] [feature] Create a new Issue based on a specific markdown file (remote path)
-- [ ] [feature] Connect to github account
+- [x] [feature] Connect to github account
 
 ### Wishlist
 
