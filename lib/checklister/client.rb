@@ -1,4 +1,5 @@
 require "gitlab"
+require "octokit"
 
 module Checklister
   # Implement a kind of Factory pattern
@@ -8,10 +9,12 @@ module Checklister
     # The issue service backends we are currently supporting
     #
     #  - [x] gitlab
-    #  - [ ] github
+    #  - [x] github
     #  - [ ] bitbucket
     #
-    IMPLEMENTED_BACKENDS = %w(gitlab)
+    IMPLEMENTED_BACKENDS = %w(gitlab github)
+
+    attr_reader :api_client
 
     # Initialize all the issue service options required to be able to interact with it
     #
@@ -29,12 +32,26 @@ module Checklister
     #
     def initialize(options = {})
       @kind = options.fetch(:kind) { raise ArgumentError, "No API client can be initialized" }
-      raise(ArgumentError, "No #{@kind} API client has been implemented") unless IMPLEMENTED_BACKENDS.include?(@kind)
+      raise(NotImplementedError, "No #{@kind} API client has been implemented") unless IMPLEMENTED_BACKENDS.include?(@kind)
       @options = options.reject { |k| [:kind].include? k }
       default_options = { user_agent: "Checklister for #{@kind} #{Checklister::VERSION}" }
-      default_options.merge!(httparty: { verify: false }) # FIXME
       @options.merge! default_options
+      @options_for_kind = prepare_options_for_kind(@options, @kind)
+      @project_klass = nil
+      @issue_klass = nil
+      define_classes_for_kind(@kind)
+      @api_client = get_api_client
     end
+
+    def project
+      @project ||= @project_klass.new(@api_client)
+    end
+
+    def issue
+      @issue ||= @issue_klass.new(@api_client)
+    end
+
+    private
 
     # Initialize the issue service API client
     #
@@ -47,8 +64,38 @@ module Checklister
     def get_api_client
       case @kind
       when "gitlab"
-        ::Gitlab.client(@options)
+        @api_client ||= ::Gitlab.client(@options_for_kind)
+      when "github"
+        @api_client ||= Octokit::Client.new(@options_for_kind)
       end
+    end
+
+    def prepare_options_for_kind(options, kind)
+      if kind == "github"
+        # Octokit uses ENV for overide
+        # See: https://github.com/octokit/octokit.rb/blob/a98979107a4bf9741a05a1f751405f8a29f29b38/lib/octokit/default.rb#L136-L138
+        options.delete(:user_agent)
+        # :endpoint is not required
+        options.delete(:endpoint)
+        # :private_token is called :access_token
+        options[:access_token] = options.delete(:private_token)
+      elsif kind == "gitlab"
+        options.merge!(httparty: { verify: false }) # FIXME
+      end
+      options
+    end
+
+    def define_classes_for_kind(kind)
+      @project_klass = if kind == "gitlab"
+                         Checklister::Gitlab::Project
+                       elsif kind == "github"
+                         Checklister::Github::Project
+                       end
+      @issue_klass = if kind == "gitlab"
+                       Checklister::Gitlab::Issue
+                     elsif kind == "github"
+                       Checklister::Github::Issue
+                     end
     end
   end
 end

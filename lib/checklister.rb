@@ -9,6 +9,8 @@ require "checklister/version"
 require "checklister/client"
 require "checklister/gitlab/project"
 require "checklister/gitlab/issue"
+require "checklister/github/project"
+require "checklister/github/issue"
 
 module Checklister
   class << self

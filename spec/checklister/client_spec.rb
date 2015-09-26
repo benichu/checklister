@@ -5,21 +5,37 @@ describe Checklister::Client do
     { endpoint: "https://www.gitlab.com/api", private_token: "supersecret", kind: "gitlab" }
   end
 
+  let(:github_config) do
+    { endpoint: "https://api.github.com", private_token: "supersecret", kind: "github" }
+  end
+
   it "needs an implemented backend API client, based on kind" do
     expect do
-      Checklister::Client.new(gitlab_config.merge!(kind: "foo")).get_api_client
-    end.to raise_error ArgumentError, "No foo API client has been implemented"
+      Checklister::Client.new(gitlab_config.merge!(kind: "foo"))
+    end.to raise_error NotImplementedError, "No foo API client has been implemented"
+  end
+
+  context "create github API client" do
+    it "initializes client" do
+      github_client = Checklister::Client.new(github_config).api_client
+      expect(github_client).to be_a Octokit::Client
+    end
+
+    it "removes the :endpoint option and renames :private_token into :access_token" do
+      expect(Octokit::Client).to receive(:new).with(access_token: "supersecret")
+      Checklister::Client.new(github_config).api_client
+    end
   end
 
   context "create gitlab API client" do
-    subject(:gitlab_client) { Checklister::Client.new(gitlab_config).get_api_client }
+    subject(:gitlab_client) { Checklister::Client.new(gitlab_config).api_client }
     it "initializes client" do
       expect(gitlab_client).to be_a Gitlab::Client
     end
 
     it "needs a valid kind option" do
       expect do
-        Checklister::Client.new(gitlab_config.reject { |k| k == :kind }).get_api_client
+        Checklister::Client.new(gitlab_config.reject { |k| k == :kind })
       end.to raise_error ArgumentError, "No API client can be initialized"
     end
 

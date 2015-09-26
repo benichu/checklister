@@ -117,28 +117,26 @@ desc "Transform a markdown file or url checklist into an actionable issue"
 command :new do |c|
   c.flag [:c,:checklist], desc: "Set the markdown checklist file path", required: true
   c.action do |global_options,options,args|
-    client = Checklister::Client.new(Checklister.config.to_hash).get_api_client
-    gitlab_project = Checklister::Gitlab::Project.new(client)
+    api_client = Checklister::Client.new(Checklister.config.to_hash)
+    project_client = api_client.project
     checklist_path = options[:checklist]
 
     puts "* Type some letters of your project's name..."
     project_like = STDIN.gets.chomp
-    projects = gitlab_project.filtered_by_name(project_like)
+    projects = project_client.filtered_by_name(project_like)
     default_project_id = projects.first[:id]
     projects.each do |project|
-      puts "%-5s %-100s" % ["[#{project[:id]}]", project[:name_with_namespace]]
+      puts "%-5s %-100s" % ["[#{project[:id]}]", project[:name]]
     end
     puts "* Pick your project Id, defaults to [#{default_project_id}]"
     choice = STDIN.gets.chomp
     project_id = choice == "" ? default_project_id : choice
-    project = gitlab_project.get(project_id)
+    project = project_client.get(project_id)
     puts "* Creating a checklist issue from #{checklist_path}"
     puts "  to the project: #{project[:name]}"
     parsed_checklist = Checklister::Parser.new(checklist_path)
-    issue = Checklister::Gitlab::Issue.new(client).create(project_id, parsed_checklist.to_params)
-    puts "------------->"
-    puts "| Check it out: #{Checklister.config.endpoint.gsub("/api/v3", "")}/#{project[:path_with_namespace]}/issues/#{issue.id}"
-    puts "------------->"
+    issue = api_client.issue.create(project_id, parsed_checklist.to_params)
+    puts "* Issue successfully created!"
   end
 end
 

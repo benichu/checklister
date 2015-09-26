@@ -2,8 +2,10 @@
   "id":1,
   "code":"brute",
   "name":"Brute",
+  "name_with_namespace": "Checklister / Brute",
+  "path": "checklister-brute",
+  "path_with_namespace": "checklister/brute",
   "description":null,
-  "path":"brute",
   "default_branch":null,
   "owner":{
     "id":1,

@@ -4,7 +4,9 @@
       "code":"gitlab",
       "name":"Gitlab",
       "description":null,
-      "path":"gitlab",
+      "name_with_namespace": "Checklister / Gitlab",
+      "path": "checklister-gitlab",
+      "path_with_namespace": "checklister/gitlab",
       "default_branch":null,
       "owner":{
          "id":1,
