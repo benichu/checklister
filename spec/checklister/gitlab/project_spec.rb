@@ -4,7 +4,7 @@ describe Checklister::Gitlab::Project do
   let(:gitlab_config) do
     { endpoint: "https://www.gitlab.com/api", private_token: "supersecret", kind: "gitlab" }
   end
-  let(:client) { Checklister::Client.new(gitlab_config).get_api_client }
+  let(:client) { Checklister::Client.new(gitlab_config).api_client }
 
   describe ".get" do
     let(:project) { Checklister::Gitlab::Project.new(client).get(1) }
@@ -15,7 +15,7 @@ describe Checklister::Gitlab::Project do
     end
 
     it "returns a valid record" do
-      expect(project).to include(id: 1, name: "Brute", description: nil)
+      expect(project).to include(id: 1, name: "Checklister / Brute", description: nil)
     end
   end
 
@@ -34,7 +34,7 @@ describe Checklister::Gitlab::Project do
 
     it "returns a valid record" do
       project = all_projects.first
-      expect(project).to include(id: 1, name: "Brute", description: nil)
+      expect(project).to include(id: 1, name: "Checklister / Brute", description: nil)
     end
   end
 
@@ -53,7 +53,7 @@ describe Checklister::Gitlab::Project do
 
     it "returns a valid record" do
       project = filtered_projects.first
-      expect(project).to include(id: 3, name: "Gitlab", description: nil)
+      expect(project).to include(id: 3, name: "Checklister / Gitlab", description: nil)
     end
   end
 end

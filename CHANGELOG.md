@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file.
 
 NOTE: the project follows [Semantic Versioning](http://semver.org/).
 
-## 0.0.9 - 2015-09-22
+## 0.9.3 - 2015-09-26
+
+### Added
+
+- [feature] Connect to git account
+- [feature] Save your github services settings to local file
+
+## 0.9.0 - 2015-09-22
 
 ### Added
 

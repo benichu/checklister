@@ -4,7 +4,9 @@
       "code":"brute",
       "name":"Brute",
       "description":null,
-      "path":"brute",
+      "name_with_namespace": "Checklister / Brute",
+      "path": "checklister-brute",
+      "path_with_namespace": "checklister/brute",
       "default_branch":null,
       "owner":{
          "id":1,
@@ -25,7 +27,9 @@
       "code":"mozart",
       "name":"Mozart",
       "description":null,
-      "path":"mozart",
+      "name_with_namespace": "Checklister / Mozart",
+      "path": "checklister-mozart",
+      "path_with_namespace": "checklister/mozart",
       "default_branch":null,
       "owner":{
          "id":1,
@@ -46,7 +50,9 @@
       "code":"gitlab",
       "name":"Gitlab",
       "description":null,
-      "path":"gitlab",
+      "name_with_namespace": "Checklister / Gitlab",
+      "path": "checklister-gitlab",
+      "path_with_namespace": "checklister/gitlab",
       "default_branch":null,
       "owner":{
          "id":1,

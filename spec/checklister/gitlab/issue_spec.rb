@@ -4,7 +4,7 @@ describe Checklister::Gitlab::Issue do
   let(:gitlab_config) do
     { endpoint: "https://www.gitlab.com/api", private_token: "supersecret", kind: "gitlab" }
   end
-  let(:client) { Checklister::Client.new(gitlab_config).get_api_client }
+  let(:client) { Checklister::Client.new(gitlab_config).api_client }
 
   describe "#create" do
     before(:each) do
