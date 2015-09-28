@@ -125,12 +125,12 @@ command :new do |c|
     project_like = STDIN.gets.chomp
     projects = project_client.filtered_by_name(project_like)
     default_project_id = projects.first[:id]
-    projects.each do |project|
-      puts "%-5s %-100s" % ["[#{project[:id]}]", project[:name]]
+    projects.each_with_index do |project, index|
+      puts "%-5s %-100s" % ["[#{index}]", project[:name]]
     end
-    puts "* Pick your project Id, defaults to [#{default_project_id}]"
+    puts "* Pick your project, defaults to [0]"
     choice = STDIN.gets.chomp
-    project_id = choice == "" ? default_project_id : choice
+    project_id = choice == "" ? default_project_id : projects[choice.to_i][:id]
     project = project_client.get(project_id)
     puts "* Creating a checklist issue from #{checklist_path}"
     puts "  to the project: #{project[:name]}"
