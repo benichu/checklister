@@ -18,7 +18,7 @@ Checklister is a CLI packaged as a Ruby gem giving you the power to transform an
 A checklist is an ideal tool to help people remembering all of the steps required to accomplish complicated tasks and objectives.
 Using a checklist enforces best practices, even if they seem obvious at first, preventing costly mistakes.
 
-### the checklist manifesto
+### The checklist manifesto
 
 A great book to read for more inspiration about the power of checklist:
 
@@ -73,6 +73,12 @@ In this example, the initial markdown file at `https://raw.githubusercontent.com
 Once the file is parsed, a Github issue will be created with its content. In this case, the issue would be :
 
 ![Github Issue](http://i.imgur.com/1IwGKaS.png)
+
+Alternatively, you can set a custom title for your issue with the `-t` or `--title` option :
+
+```bash
+$ checklister new --checklist /path/to/simple-checklist.md --title "A custom title"
+```
 
 ## Development Setup
 
