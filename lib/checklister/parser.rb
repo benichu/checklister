@@ -9,19 +9,19 @@ module Checklister
   #
   class Parser
     # @param [String] file_path the path of the markdown file to parse
-    def initialize(file_path)
+    def initialize(file_path, title = nil)
       @file_content = File.open(file_path).read
+      @title = title
     end
 
     # @return [Hash] a hash of params
     def to_params
-      title     = ""
       checklist = []
 
       @file_content.each_line do |line|
         # Extract a title, when we find the first <h1> header
-        if title == "" && line.start_with?("# ")
-          title = line.sub("# ", "").sub("\n", "")
+        if @title.nil? && line.start_with?("# ")
+          @title = line.sub("# ", "").sub("\n", "")
         else
           # Then, keep the text intact until the end of the file
           checklist << line
@@ -29,10 +29,10 @@ module Checklister
       end
 
       # Default title, if no <H1> header found
-      title = "Checklist" if title == ""
+      @title = "Checklist" if @title.nil?
 
       # Return the parsed text as an object
-      { title: title, body: checklist.join }
+      { title: @title, body: checklist.join }
     end
   end
 end

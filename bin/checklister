@@ -116,10 +116,12 @@ end
 desc "Transform a markdown file or url checklist into an actionable issue"
 command :new do |c|
   c.flag [:c,:checklist], desc: "Set the markdown checklist file path", required: true
+  c.flag [:t,:title], desc: "Set a custom issue title"
   c.action do |global_options,options,args|
     api_client = Checklister::Client.new(Checklister.config.to_hash)
     project_client = api_client.project
     checklist_path = options[:checklist]
+    title = options[:title]
 
     puts "* Type some letters of your project's name..."
     project_like = STDIN.gets.chomp
@@ -134,7 +136,7 @@ command :new do |c|
     project = project_client.get(project_id)
     puts "* Creating a checklist issue from #{checklist_path}"
     puts "  to the project: #{project[:name]}"
-    parsed_checklist = Checklister::Parser.new(checklist_path)
+    parsed_checklist = Checklister::Parser.new(checklist_path, title)
     issue = api_client.issue.create(project_id, parsed_checklist.to_params)
     puts "* Issue successfully created!"
   end
