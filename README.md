@@ -143,7 +143,7 @@ To prepare a release, run `script/release`. This will package a new version of t
 
 ### Version 1.0
 
-- [ ] [improvements] CLI improvements based on first test run with real users
+- [x] [improvements] CLI improvements based on first test run with real users
 - [ ] [documentation] Yard documentation updated
 - [x] [feature] Connect to github account
 
