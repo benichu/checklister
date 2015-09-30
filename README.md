@@ -36,18 +36,15 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 
 #### Find your Github token
 
-Follow this video tutorial :
-![Github token](https://www.dropbox.com/s/smnc1qdklwadvzu/Github%20token.mp4?dl=1)
+[Follow this video tutorial.](https://www.dropbox.com/s/smnc1qdklwadvzu/Github%20token.mp4?dl=0)
 
 #### Find your Gitlab token (v7)
 
-Follow this video tutorial :
-![Gitlab v7 token](https://www.dropbox.com/s/urkcdr9o3hvr2e9/Old%20Gitlab%20token.mp4?dl=1)
+[Follow this video tutorial.](https://www.dropbox.com/s/cob01skd1jbp2ha/Old%20Gitbal%20token.mp4?dl=0)
 
 #### Find your Gitlab token (v8)
 
-Follow this video tutorial :
-![Gitlab v8 token](https://www.dropbox.com/s/e12pmlk5416hlac/Gitlab%20token.mp4?dl=1)
+[Follow this video tutorial.](https://www.dropbox.com/s/e12pmlk5416hlac/Gitlab%20token.mp4?dl=0)
 
 ### Install/Update gem
 
