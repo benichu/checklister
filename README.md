@@ -139,7 +139,6 @@ To prepare a release, run `script/release`. This will package a new version of t
 
 - [ ] [improvements] CLI improvements based on first test run with real users
 - [ ] [documentation] Yard documentation updated
-- [ ] [feature] Create a new Issue based on a specific markdown file (remote path)
 - [x] [feature] Connect to github account
 
 ### Wishlist
@@ -148,6 +147,7 @@ To prepare a release, run `script/release`. This will package a new version of t
 - [ ] [feature] Select a milestone from a list populated based on github/gitlab API
 - [ ] [feature] Select a checklist from an history list
 - [ ] [feature] Connect to a bitbucket account
+- [ ] [feature] Create a new Issue based on a specific markdown file (remote path)
 
 ## Authors
 

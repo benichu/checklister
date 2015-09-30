@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 NOTE: the project follows [Semantic Versioning](http://semver.org/).
 
+## 0.9.5 - 2015-09-29
+
+### Added
+
+- [feature] We should be able to override the issue's title we create with a CLI option
+
 ## 0.9.4 - 2015-09-26
 
 ### Fixed
