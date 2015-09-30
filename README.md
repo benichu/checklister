@@ -60,12 +60,6 @@ $ checklister settings
 $ checklister new --checklist /path/to/simple-checklist.md
 ```
 
-or for a remote path (NOT IMPLEMENTED YET)
-
-```bash
-$ checklister new --checklist https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md
-```
-
 In this example, the initial markdown file at `https://raw.githubusercontent.com/benichu/checklister/master/examples/simple-checklist.md` is the following :
 
 ![Simple Checklist](http://i.imgur.com/KUXThqu.png)
