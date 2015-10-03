@@ -2,7 +2,9 @@ module Checklister
   module Github
     class ProjectDecorator
       def initialize(object)
-        @object = object
+        @object = Checklister::Sanitizer.symbolize JSON.parse(object)
+      rescue TypeError
+        @object = Checklister::Sanitizer.symbolize object
       end
 
       def id
@@ -49,7 +51,8 @@ module Checklister
       # @return [Array] and array of project's properties as Hash
       def all(options = {})
         query_options = DEFAULT_OPTIONS.merge options
-        @client.repositories(query_options).map { |p| ProjectDecorator.new(p).to_hash }
+        repositories = @client.repositories(query_options)
+        repositories.map { |p| ProjectDecorator.new(p).to_hash }
       end
 
       # Get github's projects based on a search string (LIKE on project#name)

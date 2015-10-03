@@ -6,7 +6,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "checklister"
 
 def load_fixture(name)
-  File.new(File.dirname(__FILE__) + "/fixtures/#{name}.json")
+  File.new(File.dirname(__FILE__) + "/fixtures/#{name}.json").read
 end
 
 RSpec.configure do |config|

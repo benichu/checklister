@@ -7,7 +7,7 @@ module Checklister
 
       def create(project_id, attributes = {})
         issue = Checklister::Issue.new(attributes.merge(project_id: project_id))
-        JSON.parse @client.create_issue(issue.project_id, issue.title, issue.description)
+        @client.create_issue(issue.project_id, issue.title, issue.description)
       end
     end
   end
