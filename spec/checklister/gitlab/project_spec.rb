@@ -22,19 +22,32 @@ describe Checklister::Gitlab::Project do
   describe ".all" do
     let(:all_projects) { Checklister::Gitlab::Project.new(client).all }
 
-    before(:each) do
-      stub_request(:get, /www.gitlab.com/).
-        to_return(status: 200, body: load_fixture("projects"), headers: {})
+    context "with remote projects" do
+      before(:each) do
+        stub_request(:get, /www.gitlab.com/).
+          to_return(status: 200, body: load_fixture("projects"), headers: {})
+      end
+
+      it "returns a collection of projects" do
+        expect(all_projects.first[:id]).to eq 1
+        expect(all_projects.last[:id]).to eq 3
+      end
+
+      it "returns a valid record" do
+        project = all_projects.first
+        expect(project).to include(id: 1, name: "Checklister / Brute", description: nil)
+      end
     end
 
-    it "returns a collection of projects" do
-      expect(all_projects.first[:id]).to eq 1
-      expect(all_projects.last[:id]).to eq 3
-    end
+    context "with no remote projects" do
+      before(:each) do
+        stub_request(:get, /www.gitlab.com/).
+          to_return(status: 200, body: [], headers: {})
+      end
 
-    it "returns a valid record" do
-      project = all_projects.first
-      expect(project).to include(id: 1, name: "Checklister / Brute", description: nil)
+      it "returns an empty arrray" do
+        expect(all_projects).to be_empty
+      end
     end
   end
 

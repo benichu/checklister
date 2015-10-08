@@ -53,10 +53,12 @@ module Checklister
         projects = []
         page = 1
         while page <= MAX_PAGES
-          projects += @client.projects(query_options.merge(page: page)).map { |p| ProjectDecorator.new(p).to_hash }
-          if projects.empty?
+          projects_per_page = @client.projects(query_options.merge(page: page))
+          if projects_per_page == false || projects_per_page.empty?
             page = MAX_PAGES
+            return projects
           else
+            projects += projects_per_page.map { |p| ProjectDecorator.new(p).to_hash }
             page += 1
           end
         end
