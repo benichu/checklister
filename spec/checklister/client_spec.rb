@@ -25,6 +25,14 @@ describe Checklister::Client do
       expect(Octokit::Client).to receive(:new).with(access_token: "supersecret")
       Checklister::Client.new(github_config).api_client
     end
+
+    it "initializes a project" do
+      expect(Checklister::Client.new(github_config).project).to be_a Checklister::Github::Project
+    end
+
+    it "initializes an issue" do
+      expect(Checklister::Client.new(github_config).issue).to be_a Checklister::Github::Issue
+    end
   end
 
   context "create gitlab API client" do
@@ -49,6 +57,14 @@ describe Checklister::Client do
 
     it "sets the user agent" do
       expect(gitlab_client.user_agent).to eq "Checklister for gitlab #{Checklister::VERSION}"
+    end
+
+    it "initializes a project" do
+      expect(Checklister::Client.new(gitlab_config).project).to be_a Checklister::Gitlab::Project
+    end
+
+    it "initializes an issue" do
+      expect(Checklister::Client.new(gitlab_config).issue).to be_a Checklister::Gitlab::Issue
     end
   end
 end
