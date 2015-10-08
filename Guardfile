@@ -23,3 +23,8 @@ guard :rspec, cmd: "bundle exec rspec" do
   ruby = dsl.ruby
   dsl.watch_spec_files_for(ruby.lib_files)
 end
+
+guard 'ctags-bundler', :src_path => ["lib", "spec/support"] do
+  watch(/^(lib|spec\/support)\/.*\.rb$/)
+  watch('Gemfile.lock')
+end

@@ -1,7 +1,5 @@
 # Checklister
 
-> STILL UNDER ACTIVE DEVELOPMENT
-
 [![Build Status](https://travis-ci.org/benichu/checklister.svg)](https://travis-ci.org/benichu/checklister)
 [![Dependency Status](https://gemnasium.com/benichu/checklister.svg)](https://gemnasium.com/benichu/checklister)
 [![Gem Version](https://badge.fury.io/rb/checklister.svg)](http://badge.fury.io/rb/checklister)
@@ -93,6 +91,7 @@ $ checklister new --checklist /path/to/simple-checklist.md --title "A custom tit
 * Ruby 2.0+
 * RubyGems 1.9+ (`gem update --system `)
 * Bundler 1.10+
+* [ctags](http://ctags.sourceforge.net/)
 
 ### Bootstrap
 
