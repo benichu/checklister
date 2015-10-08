@@ -134,16 +134,6 @@ To prepare a release, run `script/release`. This will package a new version of t
 
 ## Roadmap
 
-### Version 0.9
-
-- [x] [feature] Create a new Issue based on a specific markdown file (local path)
-- [x] [feature] Connect to gitlab account
-
-### Version 1.0
-
-- [x] [improvements] CLI improvements based on first test run with real users
-- [x] [feature] Connect to github account
-
 ### Wishlist
 
 - [ ] [documentation] Yard documentation updated
