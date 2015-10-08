@@ -142,11 +142,11 @@ To prepare a release, run `script/release`. This will package a new version of t
 ### Version 1.0
 
 - [x] [improvements] CLI improvements based on first test run with real users
-- [ ] [documentation] Yard documentation updated
 - [x] [feature] Connect to github account
 
 ### Wishlist
 
+- [ ] [documentation] Yard documentation updated
 - [ ] [dev] Better step by step DSL for CLI interactions with user
 - [ ] [feature] Select a milestone from a list populated based on github/gitlab API
 - [ ] [feature] Select a checklist from an history list
