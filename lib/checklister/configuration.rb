@@ -73,9 +73,7 @@ module Checklister
     # List of all the configuration attributes stored for use within the gem
     ATTRIBUTES = [:endpoint, :private_token, :label, :kind]
 
-    # List of accessor attributes
     attr_accessor :endpoint, :private_token, :kind
-    # List of writer attributes (with a reader defined in the class definition)
     attr_writer :label
 
     # Apply a configuration hash to a configuration instance
