@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 NOTE: the project follows [Semantic Versioning](http://semver.org/).
 
+## 1.0.0 - 2015-10-08
+
+First Official Release
+
 ## 0.9.6 - 2015-09-30
 
 - [improvement] When displaying a list of projects to select from, display and pick index instead of project's id
