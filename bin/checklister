@@ -126,12 +126,25 @@ command :new do |c|
     puts "* Type some letters of your project's name..."
     project_like = STDIN.gets.chomp
     projects = project_client.filtered_by_name(project_like)
+
+    while projects.empty?
+      puts "* We couldn't find any project matching your request. Please be more specific, and make sure that the project exists."
+      project_like = STDIN.gets.chomp
+      projects = project_client.filtered_by_name(project_like)
+    end
+
     default_project_id = projects.first[:id]
     projects.each_with_index do |project, index|
       puts "%-5s %-100s" % ["[#{index}]", project[:name]]
     end
     puts "* Pick your project, defaults to [0]"
     choice = STDIN.gets.chomp
+
+    while !(0...projects.size).to_a.include?(choice.to_i)
+      puts "* You need to select a project from this list. Please choose again."
+      choice = STDIN.gets.chomp
+    end
+
     project_id = choice == "" ? default_project_id : projects[choice.to_i][:id]
     project = project_client.get(project_id)
     puts "* Creating a checklist issue from #{checklist_path}"
