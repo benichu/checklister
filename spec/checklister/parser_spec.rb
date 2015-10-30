@@ -4,7 +4,7 @@ describe Checklister::Parser do
   let(:simple_checklist) { Checklister::Parser.new("./spec/fixtures/simple-checklist.md") }
   let(:basic_checklist) { Checklister::Parser.new("./spec/fixtures/basic-checklist.md") }
   let(:complex_checklist) { Checklister::Parser.new("./spec/fixtures/complex-checklist.md") }
-  let(:checklist_with_custom_title) { Checklister::Parser.new("./spec/fixtures/basic-checklist.md", "This is a custom title") }
+  let(:checklist_with_custom_title) { Checklister::Parser.new("./spec/fixtures/simple-checklist.md", "This is a custom title") }
 
   context "For a default checklist" do
     before do
@@ -75,7 +75,7 @@ describe Checklister::Parser do
   context "For a simple checklist with a custom title" do
     before do
       @title = "This is a custom title"
-      @body = "## Checklist without h1 title\n\n- [ ] Step 1\n- [ ] Step 2\n- [ ] Step 3\n"
+      @body = "\n## Context\n\nWhen you need to accomplish stuff, follow those steps.\n\n## Checklist\n\n- [ ] Step 1\n- [ ] Step 2\n- [ ] Step 3\n"
     end
 
     describe "#to_params" do

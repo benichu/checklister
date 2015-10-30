@@ -22,6 +22,8 @@ module Checklister
         # Extract a title, when we find the first <h1> header
         if @title.nil? && line.start_with?("# ")
           @title = line.sub("# ", "").sub("\n", "")
+        elsif @title && line.start_with?("# ")
+          next
         else
           # Then, keep the text intact until the end of the file
           checklist << line
