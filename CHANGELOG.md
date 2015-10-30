@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 NOTE: the project follows [Semantic Versioning](http://semver.org/).
 
+## 1.0.1 - 2015-10-29
+
+- [improvement] Remove h1 from checklist if custom title is given
+
 ## 1.0.0 - 2015-10-08
 
 First Official Release
