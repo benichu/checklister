@@ -71,6 +71,7 @@ module Checklister
     end
 
     def prepare_options_for_kind(options, kind)
+      httparty_options = {}
       if kind == "github"
         # Octokit uses ENV for overide
         # See: https://github.com/octokit/octokit.rb/blob/a98979107a4bf9741a05a1f751405f8a29f29b38/lib/octokit/default.rb#L136-L138
@@ -80,7 +81,10 @@ module Checklister
         # :private_token is called :access_token
         options[:access_token] = options.delete(:private_token)
       elsif kind == "gitlab"
-        options.merge!(httparty: { verify: false }) # FIXME
+        httparty_options[:ssl_ca_file]  = options[:endpoint_certificate_path] unless options[:endpoint_certificate_path].to_s == ""
+        httparty_options[:p12]          = File.read(options[:client_certificate_path]) unless options[:client_certificate_path].to_s == ""
+        httparty_options[:p12_password] = options[:client_certificate_password] unless options[:client_certificate_password].to_s == ""
+        options.merge!(httparty: httparty_options)
       end
       options
     end

@@ -71,9 +71,9 @@ module Checklister
   #
   class Configuration
     # List of all the configuration attributes stored for use within the gem
-    ATTRIBUTES = [:endpoint, :private_token, :label, :kind]
+    ATTRIBUTES = [:endpoint, :private_token, :label, :kind, :client_certificate_path, :client_certificate_password, :endpoint_certificate_path]
 
-    attr_accessor :endpoint, :private_token, :kind
+    attr_accessor :endpoint, :private_token, :kind, :client_certificate_path, :client_certificate_password, :endpoint_certificate_path
     attr_writer :label
 
     # Apply a configuration hash to a configuration instance

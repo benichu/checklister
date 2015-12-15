@@ -22,6 +22,18 @@ describe Checklister::Configuration do
     it "defines a default kind" do
       expect(config.kind).to be_nil
     end
+
+    it "defines a default endpoint_certificate_path" do
+      expect(config.endpoint_certificate_path).to be_nil
+    end
+
+    it "defines a default client_certificate_path" do
+      expect(config.client_certificate_path).to be_nil
+    end
+
+    it "defines a default client_certificate_password" do
+      expect(config.client_certificate_password).to be_nil
+    end
   end
 
   describe "#apply" do
@@ -75,7 +87,10 @@ describe Checklister::Configuration do
     it "returns a valid value with symboled keys" do
       expect(config.to_hash).to include(endpoint: valid_configuration_hash[:endpoint],
                                         private_token: valid_configuration_hash[:private_token],
-                                        kind: valid_configuration_hash[:kind])
+                                        kind: valid_configuration_hash[:kind],
+                                        endpoint_certificate_path: valid_configuration_hash[:endpoint_certificate_path],
+                                        client_certificate_path: valid_configuration_hash[:client_certificate_path],
+                                        client_certificate_password: valid_configuration_hash[:client_certificate_password])
     end
 
     it "does not return string keys" do
