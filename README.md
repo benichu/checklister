@@ -49,6 +49,15 @@ Source: http://atulgawande.com/book/the-checklist-manifesto/
 $ gem install checklister
 ```
 
+> NOTE: If you use a ruby manager, the gem have to be installed each time you want to use it in a new ruby context.
+
+#### PROTIP
+
+If you use rbenv as your ruby manager, and want to easily install/update `checklister` across all your rubies:
+
+1. Install [rbenv-each](https://github.com/rbenv/rbenv-each)
+1. Run `$ rbenv each gem install checklister` everytime there is a new version of the gem
+
 ### Setup Gitlab Authentication
 
 ```bash
