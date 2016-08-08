@@ -108,18 +108,16 @@ command :setup do |c|
 
       # Configure tls client certificate, if any
       if bot.agree("<%= color('Does your Gitlab server require a client certificate? [y/n]', :question) %>")
-        # Set the endpoint certificate path
-        data["endpoint_certificate_path"] = bot.ask("<%= color('Please enter the path to your SSL certificate (the extension should be .crt)', :question) %>") do |q|
-          q.validate = /.*\S.*/
-        end
-
         # Set the private certificate path
         data["client_certificate_path"] = bot.ask("<%= color('Please enter the path to your private certificate (the extension should be .p12)', :question) %>") do |q|
           q.validate = /.*\S.*/
         end
 
+        # Set the endpoint certificate path
+        data["endpoint_certificate_path"] = bot.ask("<%= color('Please enter, if any, the path to your ca certificate (the extension should be .crt)', :question) %>")
+
         # Set the private certificate password (not compulsory)
-        data["client_certificate_password"] = bot.ask("<%= color('Please enter your private certificate password', :question) %>") do |q|
+        data["client_certificate_password"] = bot.ask("<%= color('Please enter, if any, your private certificate password', :question) %>") do |q|
           q.echo = "*"
         end
       end
