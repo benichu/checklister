@@ -1,8 +1,21 @@
 #!/usr/bin/env ruby
+# CLI Tools
 require "gli"
+require "highline"
+# Gem logic entrypoint
 require "checklister"
 
 include GLI::App
+
+# Highline
+ft = HighLine::ColorScheme.new do |cs|
+  cs[:question] = [ :bold, :cyan ]
+  cs[:info]     = [ :bold, :white ]
+  cs[:error]    = [ :magenta ]
+end
+
+HighLine.color_scheme = ft
+bot = HighLine.new
 
 ISSUE_SERVICES = { "1" => "gitlab", "2" => "github" }.freeze
 
@@ -28,20 +41,22 @@ pre do |global_options,command,options,args|
       config_options = global_options
     elsif config_file.exist?
       saved_services = config_file.services
+      choice = 0
       if saved_services.size > 1
-        puts "* Which Issue Service would you like to use?"
-        saved_services.each_with_index do |service, index|
-          line = []
-          line << "[#{index+1}] #{service[:endpoint]}"
-          line << "(#{service[:label]})" if service[:label]
-          puts line.join(" ")
+        bot.say "<%= color('Which Issue Service would you like to use?', :question) %>"
+        bot.choose do |menu|
+          menu.select_by = :index
+          # Options
+          saved_services.each_with_index do |service, index|
+            label = [service[:endpoint]]
+            label << "- #{service[:label]}" if service[:label].to_s != ""
+            menu.choice(label.join(" ")) { choice = index }
+          end
         end
-        choice = STDIN.gets.to_i
-        raise("You need to select a service.") if choice < 1
       else
-        choice = 1
+        choice = 0
       end
-      service_selected = saved_services[choice-1]
+      service_selected = saved_services[choice]
       config_options = service_selected
     else
       config_options = {}
@@ -65,51 +80,65 @@ desc "Save your gitlab or github settings for later"
 command :setup do |c|
   c.action do |global_options,options,args|
     data = {}
+    choice = nil
     config_file = Checklister::ConfigurationFile.new(global_options["config"])
 
     if global_options[:service]
       service_selected = global_options[:service]
     else
-      puts "* Which Issue Service would you like to setup?"
-      ISSUE_SERVICES.each do |index, service|
-        puts "[#{index}] #{service}"
+      bot.say "<%= color('Which Issue Service would you like to setup?', :info) %>"
+      bot.choose do |menu|
+        menu.select_by = :index
+        # Options
+        ISSUE_SERVICES.each do |index, service|
+          menu.choice(service) { choice = index }
+        end
       end
-      choice = STDIN.gets.to_i
-      raise("You need to select a service.") if choice < 1
       service_selected = ISSUE_SERVICES[choice.to_s]
     end
     data["kind"] = service_selected
 
-    puts ""
-    puts "* We are going to help you set up the #{service_selected} service"
+    bot.say "<%= color('We are going to help you set up the #{service_selected} service', :info) %>"
 
     if service_selected == "gitlab"
-      puts ""
-      puts "** What is your gitlab endpoint? (Ex: https://gitlab.com/api/v3)"
-      choice = STDIN.gets.chomp
-      raise("You need to type a endpoint.") if choice == ""
-      data["endpoint"] = choice
+      # Get the service url
+      data["endpoint"] = bot.ask("<%= color('What is your gitlab endpoint? (Ex: https://gitlab.com/api/v3)', :question) %>") do |q|
+        q.validate = /https?:\/\/[\S]+/
+      end
+
+      # Configure tls client certificate, if any
+      if bot.agree("<%= color('Does your Gitlab server require a client certificate? [y/n]', :question) %>")
+        # Set the endpoint certificate path
+        data["endpoint_certificate_path"] = bot.ask("<%= color('Please enter the path to your SSL certificate (the extension should be .crt)', :question) %>") do |q|
+          q.validate = /.*\S.*/
+        end
+
+        # Set the private certificate path
+        data["client_certificate_path"] = bot.ask("<%= color('Please enter the path to your private certificate (the extension should be .p12)', :question) %>") do |q|
+          q.validate = /.*\S.*/
+        end
+
+        # Set the private certificate password (not compulsory)
+        data["client_certificate_password"] = bot.ask("<%= color('Please enter your private certificate password', :question) %>") do |q|
+          q.echo = "*"
+        end
+      end
     elsif service_selected == "github"
       data["endpoint"] = "https://api.github.com"
     end
 
-    puts ""
-    puts "** What is your private token with the #{service_selected} service?"
-    choice = STDIN.gets.chomp
-    raise("You need to type a private token.") if choice == ""
-    data["private_token"] = choice
-
-    puts ""
-    puts "** You can give a label to #{data["endpoint"]} (you can leave it blank too)"
-    choice = STDIN.gets.chomp
-    if choice != ""
-      data["label"] = choice
+    # Private token
+    data["private_token"] = bot.ask("<%= color('What is your private token with the #{service_selected} service?', :question) %>") do |q|
+      q.validate = /.*\S.*/
     end
 
+    # Label
+    data["label"] = bot.ask("<%= color('You can give a label to #{data["endpoint"]} (you can leave it blank too)', :question) %>")
+
+    # Persist the configuration to file
     config_file.add_service data
     config_file.persist
-    puts ""
-    puts "* Your configuration data has been saved at #{global_options[:config]}"
+    bot.say "<%= color('Your configuration data has been saved at #{global_options[:config]}', :info) %>"
   end
 end
 
