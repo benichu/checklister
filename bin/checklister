@@ -114,7 +114,9 @@ command :setup do |c|
         end
 
         # Set the endpoint certificate path
-        data["endpoint_certificate_path"] = bot.ask("<%= color('Please enter, if any, the path to your ca certificate (the extension should be .crt)', :question) %>")
+        data["endpoint_certificate_path"] = bot.ask("<%= color('Please enter, if any, the path to your ca certificate (the extension should be .crt)', :question) %>") do |q|
+          q.validate = /.*\S.*/
+        end
 
         # Set the private certificate password (not compulsory)
         data["client_certificate_password"] = bot.ask("<%= color('Please enter, if any, your private certificate password', :question) %>") do |q|
