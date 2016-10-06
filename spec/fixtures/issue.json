@@ -23,5 +23,6 @@
    },
    "closed":false,
    "updated_at":"2012-09-17T09:42:20Z",
-   "created_at":"2012-09-17T09:42:20Z"
+   "created_at":"2012-09-17T09:42:20Z",
+   "web_url": "http://example.com/example/example/issues/14"
 }

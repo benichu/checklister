@@ -180,7 +180,8 @@ command :new do |c|
     puts "  to the project: #{project[:name]}"
     parsed_checklist = Checklister::Parser.new(checklist_path, title)
     issue = api_client.issue.create(project_id, parsed_checklist.to_params)
-    puts "* Issue successfully created!"
+    issue_url = issue.html_url || issue.web_url
+    puts "* Issue successfully created! (#{issue_url})"
   end
 end
 
