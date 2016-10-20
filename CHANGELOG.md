@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 NOTE: the project follows [Semantic Versioning](http://semver.org/).
 
+## 1.1.1 - 2016-10-20
+
+### Added
+
+- [enhancement] #62 - Provide link towards created issue
+- [task] #61 - Update gem dependencies
+
+### Fixed
+
+- [bug] #72 - Cannot post a new checklist to Github
+
 ## 1.0.1 - 2015-11-06
 
 - [improvement] Remove h1 from checklist if custom title is given
